@@ -1,0 +1,1168 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 4,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eews9emttgl4wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"waiting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (\"media\" = '$media' AND \"metric\" = 'oWaiting') GROUP BY \"time\" ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a89abbb9-cdef-4012-b456-71a103a983e1",
+                  "properties": {
+                    "field": "media",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$media"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a8a8a8b8-89ab-4cde-b012-31a103aa0f3b",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oWaiting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(media = '$media' AND metric = 'oWaiting')"
+          },
+          "table": "temp"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"interacting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (\"media\" = '$media' AND \"metric\" = 'oInteracting') GROUP BY \"time\" ",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8a99a9a8-89ab-4cde-b012-31a103abd06f",
+                  "properties": {
+                    "field": "media",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$media"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a8aa9bb8-4567-489a-bcde-f1a103ac3b19",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oInteracting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(media = '$media' AND metric = 'oInteracting')"
+          },
+          "table": "temp"
+        }
+      ],
+      "title": "media",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eews9emttgl4wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"waiting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND \"metric\" = 'oWaiting' GROUP BY \"time\"",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8989b9aa-cdef-4012-b456-71a08e682229",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oWaiting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "a8babb9b-0123-4456-b89a-b1a08e1df39c",
+              "type": "group"
+            },
+            "whereString": "metric = 'oWaiting'"
+          },
+          "table": "queue"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"interacting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND \"metric\" = 'oInteracting' GROUP BY \"time\"",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "b888b9b9-0123-4456-b89a-b1a08e350121",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oInteracting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "a8babb9b-0123-4456-b89a-b1a08e1df39c",
+              "type": "group"
+            },
+            "whereString": "metric = 'oInteracting'"
+          },
+          "table": "queue"
+        }
+      ],
+      "title": "all",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eews9emttgl4wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"waiting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (\"media\" = '$media' AND regexp_replace(name::STRING, '^([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+).*', '$3', 'gi') = '$pcrc0' AND \"metric\" = 'oWaiting') GROUP BY \"time\" ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a89abbb9-cdef-4012-b456-71a103a983e1",
+                  "properties": {
+                    "field": "media",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$media"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a8a8a8b8-89ab-4cde-b012-31a103aa0f3b",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oWaiting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(media = '$media' AND metric = 'oWaiting')"
+          },
+          "table": "temp"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"interacting\", \"time\" FROM \"temp\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (\"media\" = '$media' AND regexp_replace(name::STRING, '^([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+)_([A-Z]+).*', '$3', 'gi') = '$pcrc0' AND \"metric\" = 'oInteracting') GROUP BY \"time\" ",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8a99a9a8-89ab-4cde-b012-31a103abd06f",
+                  "properties": {
+                    "field": "media",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "$media"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "a8aa9bb8-4567-489a-bcde-f1a103ac3b19",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oInteracting"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(media = '$media' AND metric = 'oInteracting')"
+          },
+          "table": "temp"
+        }
+      ],
+      "title": "media - PCRC0",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "eews9emttgl4wa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "dataset": "iox",
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"on queue\", \"time\" FROM \"pqa\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (name LIKE '%\\_QC1\\_' AND \"metric\" = 'oOnQueueUsers') GROUP BY \"time\" ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "b889ba98-89ab-4cde-b012-31a118529a73",
+                  "properties": {
+                    "field": "name",
+                    "fieldSrc": "field",
+                    "operator": "ends_with",
+                    "value": [
+                      "_QC1_"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "99888ab9-0123-4456-b89a-b1a11857539b",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oOnQueueUsers"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(name LIKE '%\\_QC1\\_' AND metric = 'oOnQueueUsers')"
+          },
+          "table": "pqa"
+        },
+        {
+          "dataset": "iox",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "eews9emttgl4wa"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(\"count\") as \"off queue\", \"time\" FROM \"pqa\" WHERE \"time\" >= $__timeFrom AND \"time\" <= $__timeTo AND (name LIKE '%\\_QC1\\_' AND \"metric\" = 'oOffQueueUsers' AND \"qualifier\" != 'OFFLINE') GROUP BY \"time\" ",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "time",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "time",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "b889ba98-89ab-4cde-b012-31a118529a73",
+                  "properties": {
+                    "field": "name",
+                    "fieldSrc": "field",
+                    "operator": "ends_with",
+                    "value": [
+                      "_QC1_"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                },
+                {
+                  "id": "99888ab9-0123-4456-b89a-b1a11857539b",
+                  "properties": {
+                    "field": "metric",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "oOnQueueUsers"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "bb99ab88-0123-4456-b89a-b1a0ee31589c",
+              "type": "group"
+            },
+            "whereString": "(name LIKE '%\\_QC1\\_' AND metric = 'oOnQueueUsers')"
+          },
+          "table": "pqa"
+        }
+      ],
+      "title": "agents",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "auto",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "*",
+        "allowCustomValue": false,
+        "current": {
+          "text": "message",
+          "value": "message"
+        },
+        "includeAll": false,
+        "name": "media",
+        "options": [
+          {
+            "selected": false,
+            "text": "callback",
+            "value": "callback"
+          },
+          {
+            "selected": false,
+            "text": "email",
+            "value": "email"
+          },
+          {
+            "selected": true,
+            "text": "message",
+            "value": "message"
+          },
+          {
+            "selected": false,
+            "text": "voice",
+            "value": "voice"
+          }
+        ],
+        "query": "callback,email,message,voice",
+        "type": "custom"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "VTA",
+          "value": "VTA"
+        },
+        "label": "PCRC0",
+        "name": "pcrc0",
+        "options": [
+          {
+            "selected": false,
+            "text": "CAR",
+            "value": "CAR"
+          },
+          {
+            "selected": false,
+            "text": "PAY",
+            "value": "PAY"
+          },
+          {
+            "selected": false,
+            "text": "RET",
+            "value": "RET"
+          },
+          {
+            "selected": false,
+            "text": "SOP",
+            "value": "SOP"
+          },
+          {
+            "selected": true,
+            "text": "VTA",
+            "value": "VTA"
+          }
+        ],
+        "query": "CAR,PAY,RET,SOP,VTA",
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "personalar (temp)",
+  "uid": "4b2371a2-b4a8-41b3-a575-ebbf761403aa",
+  "version": 9
+}
